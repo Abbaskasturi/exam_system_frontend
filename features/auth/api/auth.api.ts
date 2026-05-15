@@ -6,7 +6,7 @@ export interface RegisterData {
 }
 
 export async function registerInstitute(data: RegisterData) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3005';
 
   const response = await fetch(`${baseUrl}/institutes/register`, {
     method: 'POST',
@@ -30,7 +30,7 @@ export interface LoginData {
 }
 
 export async function loginInstitute(data: LoginData) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3005';
 
   const response = await fetch(`${baseUrl}/institutes/login`, {
     method: 'POST',

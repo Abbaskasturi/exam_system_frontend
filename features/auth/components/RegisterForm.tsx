@@ -37,7 +37,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="w-full max-w-[420px] p-8 sm:p-10 rounded-[32px] bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]">
+    <div className="w-full max-w-[420px] p-8 sm:p-10 rounded-[32px] bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]" suppressHydrationWarning>
       <div className="mb-8 text-center">
         <div className="mx-auto w-16 h-16 bg-gradient-to-tr from-indigo-500 to-cyan-400 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/30">
           <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,6 +157,7 @@ export default function RegisterForm() {
           <button
             type="submit"
             disabled={loading}
+            suppressHydrationWarning
             className="relative w-full mt-6 h-14 flex items-center justify-center rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 text-white font-bold text-lg shadow-lg hover:shadow-indigo-500/25 hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-70 disabled:cursor-not-allowed overflow-hidden group"
           >
             {loading ? (

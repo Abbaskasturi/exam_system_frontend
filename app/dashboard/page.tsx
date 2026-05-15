@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import QuestionUploadForm from "@/features/questions/components/QuestionUploadForm";
 import CreateExamForm from "@/features/exams/components/CreateExamForm";
+import QuestionList from "@/features/questions/components/QuestionList";
+import ExamList from "@/features/exams/components/ExamList";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -15,7 +17,11 @@ export default function DashboardPage() {
     const token = localStorage.getItem("auth_token");
     const name = localStorage.getItem("institute_name");
 
+    console.log("Dashboard Auth Check - Token present:", !!token);
+    console.log("Dashboard Auth Check - Institute Name:", name);
+
     if (!token) {
+      console.warn("No token found, redirecting to login...");
       // Not logged in, redirect to login
       router.push("/login");
     } else {
@@ -78,12 +84,22 @@ export default function DashboardPage() {
           </div>
 
           {/* Grid for Dashboard Cards / Forms */}
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-16">
             <div className="flex justify-center w-full">
               <QuestionUploadForm />
             </div>
             <div className="flex justify-center w-full">
               <CreateExamForm />
+            </div>
+          </div>
+
+          {/* New Sections for Lists */}
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-start pt-12 border-t border-white/10">
+            <div className="w-full">
+              <QuestionList />
+            </div>
+            <div className="w-full">
+              <ExamList />
             </div>
           </div>
         </div>

@@ -36,8 +36,11 @@ export default function StudentRegistrationForm({ instituteId, examName, onSucce
         institute_id: instituteId,
       });
       
-      // Save student info to local storage for the dashboard session
+      // Save student info and token to local storage
       localStorage.setItem("student_info", JSON.stringify(response));
+      if (response.access_token) {
+        localStorage.setItem("auth_token", response.access_token);
+      }
       
       // Trigger success callback to transition to exam dashboard
       onSuccess(response);
@@ -110,7 +113,7 @@ export default function StudentRegistrationForm({ instituteId, examName, onSucce
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5 group">
             <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest group-focus-within:text-cyan-400 transition-colors">
               Course

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { createExam, ExamData } from "../api/exams.api";
+import { copyToClipboard } from "@/lib/utils";
+
 
 export default function CreateExamForm() {
   const [formData, setFormData] = useState<ExamData>({
@@ -71,37 +73,15 @@ export default function CreateExamForm() {
     }
   };
 
-  const copyToClipboard = () => {
+  const handleCopy = async () => {
     if (!generatedLink) return;
-
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(generatedLink)
-        .then(() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        })
-        .catch(err => console.error("Clipboard copy failed", err));
-    } else {
-      // Fallback for non-secure contexts (like accessing via IP on HTTP)
-      const textArea = document.createElement("textarea");
-      textArea.value = generatedLink;
-      // Move outside of viewport
-      textArea.style.position = "absolute";
-      textArea.style.left = "-999999px";
-      document.body.prepend(textArea);
-      textArea.select();
-      
-      try {
-        document.execCommand('copy');
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      } catch (error) {
-        console.error("Fallback copy failed", error);
-      } finally {
-        textArea.remove();
-      }
+    const success = await copyToClipboard(generatedLink);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   };
+
 
   return (
     <div className="w-full p-8 sm:p-10 rounded-[32px] bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]">
@@ -137,7 +117,8 @@ export default function CreateExamForm() {
               className="bg-transparent text-gray-300 w-full px-2 text-sm focus:outline-none" 
             />
             <button 
-              onClick={copyToClipboard}
+              onClick={handleCopy}
+
               className={`shrink-0 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                 copied 
                   ? 'bg-emerald-500 text-white' 
